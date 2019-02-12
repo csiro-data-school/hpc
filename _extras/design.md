@@ -50,6 +50,51 @@ Can you design this exercise on a predesigned data set if necessary? If so, what
 
 What are all the ideas, connections, and assumptions a learner must master to achieve the task(s) described above? Please take photos of your concept maps and upload to the figures directory, with a link below.
 
+To be able to submit an array job, we'll need, in no parfticular order
+
+
+* Assumed knowledge 
+  - basic linux
+  - 
+* What is a cluster?
+* Systems available - needed for high level context, not directly required for **Task**
+  - high mem, gpu, 
+* Log in (ssh)
+* Navigate the system 
+* Data upload 
+  - scp 
+  - disk location, appropriate to long term storage, scratch etc
+* submit simple job (non-array)
+  - job headers
+    - resources
+  - editor?
+  - software environment - modules
+    - `module load blah/0.1.1-alpha
+* monitor and manage submitted jobs
+  - `squeue`, `scancel`
+  - `sacct`, `slurmtop` (optional)
+* array job 
+  - `SLURM_ARRAY_TASK_ID`
+  - simple job submission
+  - `--array`
+  
+### Feedback on draft concept map
+
+* How do we balance org-specific with general stuff? 
+  - Slurm is popular so +1, 
+  - filesystems are specific. 
+  - lesson could have csiro-specific episode(s) which could be replaced 
+* Distributed computing such as MPI is intentionally ommitted
+* Calling third party command line programms, `man, -h, --help` etc.
+* permissions 
+* redirection, stdin, stdout
+* globs
+* sclauncher - optional
+
+
+
+  
+  
 ## 3. Episodes
 
 Break your concept map up into smaller 'chunks'. Each new map should only contain 5-6 ideas. These form the individual teaching 'episodes' from which our larger topic unit is composed. 
