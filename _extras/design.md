@@ -69,7 +69,15 @@ To be able to submit an array job, we'll need, in no parfticular order
     - resources
   - editor?
   - software environment - modules
-* 
+    - `module load blah/0.1.1-alpha
+* monitor and manage submitted jobs
+  - `squeue`, `scancel`
+  - `sacct`, `slurmtop` (optional)
+* array job 
+  - `SLURM_ARRAY_TASK_ID`
+  - simple job submission
+  - `--array`
+  
   
   
   
