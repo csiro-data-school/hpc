@@ -50,6 +50,29 @@ Can you design this exercise on a predesigned data set if necessary? If so, what
 
 What are all the ideas, connections, and assumptions a learner must master to achieve the task(s) described above? Please take photos of your concept maps and upload to the figures directory, with a link below.
 
+To be able to submit an array job, we'll need, in no parfticular order
+
+
+* Assumed knowledge 
+  - basic linux
+  - 
+* What is a cluster?
+* Systems available - needed for high level context, not directly required for **Task**
+  - high mem, gpu, 
+* Log in (ssh)
+* Navigate the system 
+* Data upload 
+  - scp 
+  - disk location, appropriate to long term storage, scratch etc
+* submit simple job (non-array)
+  - job headers
+    - resources
+  - editor?
+  - software environment - modules
+* 
+  
+  
+  
 ## 3. Episodes
 
 Break your concept map up into smaller 'chunks'. Each new map should only contain 5-6 ideas. These form the individual teaching 'episodes' from which our larger topic unit is composed. 
