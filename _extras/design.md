@@ -27,7 +27,8 @@ We are loosely following the reverse instructional design process described in t
 ## 1. Final task (Practical exercise)
 
 ### Task 
-What should learners be able to do, at the end of this unit? Please describe this in one to two sentences, in terms of a practical, real-world task. 
+To submit an array job to the slurm cluster. 
+Including: accessing the hpc, uploading files, loading modules, job dependencies (optional), resource management. 
 
 Your task(s) should be achievable in the practical time allotted. Individual tasks should take 1/2 to 2 days. 
 
@@ -36,6 +37,10 @@ Your task(s) should be achievable in the practical time allotted. Individual tas
 **Task:**
 
 ### Data
+User's own data:
+
+Pre-prepared data:
+
 
 What kind of data do learners need to bring to the workshop, to complete this task? What features should the data have? (shape, size, complexity, licence etc).
 
