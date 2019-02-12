@@ -78,7 +78,21 @@ To be able to submit an array job, we'll need, in no parfticular order
   - simple job submission
   - `--array`
   
-  
+### Feedback on draft concept map
+
+* How do we balance org-specific with general stuff? 
+  - Slurm is popular so +1, 
+  - filesystems are specific. 
+  - lesson could have csiro-specific episode(s) which could be replaced 
+* Distributed computing such as MPI is intentionally ommitted
+* Calling third party command line programms, `man, -h, --help` etc.
+* permissions 
+* redirection, stdin, stdout
+* globs
+* sclauncher - optional
+
+
+
   
   
 ## 3. Episodes
