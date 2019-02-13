@@ -3,9 +3,9 @@ title: "Access the HPC"
 teaching: 15
 exercises: 15
 questions:
-- "Key question (FIXME)"
+- "How do I log on to the HPC?"
 objectives:
-- "Successfully log on to  the HPC with an SSH client"
+- "Successfully log on to the HPC with an SSH client"
 keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
