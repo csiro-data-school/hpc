@@ -22,7 +22,8 @@ We are loosely following the reverse instructional design process described in t
 **Practical time:**
 **Skill level:** Beginner through to lower intermediate. 
 **Background:** CSIRO employees, including research scientists, technicians, and support staff. 
-**Prior learning:**
+**Prior learning:** Basic linux command line including 
+
 
 ## 1. Final task (Practical exercise)
 
