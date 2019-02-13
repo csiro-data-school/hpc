@@ -9,7 +9,13 @@ objectives:
 keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
-FIXME
+
+* Why use HPC
+  - large data sets 
+  - large memory requrements
+  - parallelisation (distributed computing) 
+  - example data  to demonstrate usage
+  
 
 {% include links.md %}
 
