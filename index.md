@@ -10,8 +10,14 @@ FIXME: home page introduction
 {% comment %} This is a comment in Liquid {% endcomment %}
 
 > ## Prerequisites
->
-> FIXME
+> 
+> * linux command line basics, including
+>   - directory navigation
+>   - calling commands
+>   - geting help (`man`, `-h`, `--help`)
+>   - stdin, stdout, stderr
+>   - permissions
+> * editing files (e.g. nano, vim, gedit)
 {: .prereq}
 
 {% include links.md %}
