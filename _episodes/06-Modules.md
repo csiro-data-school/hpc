@@ -18,5 +18,7 @@ keypoints:
 * show
 * Exercise: working with modules
 
+* What if the module I need is not available?
+
 {% include links.md %}
 
