@@ -15,6 +15,7 @@ keypoints:
 * memory (RAM)
 * capability 
 * scheduler
+* resource slotting exercise
 
 {% include links.md %}
 
