@@ -3,7 +3,7 @@ title: "Submitting array jobs"
 teaching: 15
 exercises: 15
 questions:
-- "FIXME"
+- "How to submit, monitor or cancel array jobs (and why)."
 objectives:
 - "Be able to submit, monitor and cancel array jobs applicable for several input scenarios"
 keypoints:
