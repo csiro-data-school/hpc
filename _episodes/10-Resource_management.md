@@ -16,6 +16,8 @@ keypoints:
 * request resources based on job example
 * Exercise: re-submit previous jobs with good/poor resource requests
 
+* Exercise: How would I use this in my current project? What would be the first 3 steps in the process? How do I get help?
+
 {% include links.md %}
 
 
