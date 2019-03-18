@@ -10,24 +10,6 @@ keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
 
-* Text editor (nano, vim, gedit)
-  * batch script
-    * Headers
-    * Body (commands)
-* Command line (sbatch submit_script.q)
-* Job management
-  * squeue
-  * sacct
-  * scancel
-* Find output
-  * slurm out file
-  * actual job output if not stdout
-
-* Exercise: Create sample job with echo and sleep commands
-
-
-
-
 ## Running a batch job
 
 The most basic use of the scheduler is to run a command non-interactively. Any command (or series 
@@ -39,44 +21,48 @@ run as a test.
 
 > ## Creating our test job
 > 
-> Using your favourite text editor, create the following script and run it. Does it run on the
-> cluster or just our login node?
->
->```
+> Using your favourite text editor, create the following script, save it as `example-job.sh`.
+> ~~~
 >#!/bin/bash
 >
 > echo 'This script is running on:'
 > hostname
 > sleep 120
-> ```
-> {: .bash}
+> ~~~
+> {: .language-bash}
+> Run the script using 
+> ~~~
+> bash example-job.sh
+> ~~~
+> {: .language-bash}
+> Does it run on the cluster or just our login node?
 {: .challenge}
 
 If you completed the previous challenge successfully, you probably realise that there is a
 distinction between running the job through the scheduler and just "running it". To submit this job
 to the scheduler, we use the `sbatch` command.
 
-```
-[remote]$ sbatch example-job.sh
-```
-{: .bash}
-```
+~~~
+sbatch example-job.sh
+~~~
+{: .language-bash}
+~~~
 Submitted batch job 36855
-```
+~~~
 {: .output}
 
 And that's all we need to do to submit a job. Our work is done -- now the scheduler takes over and
 tries to run the job for us. While the job is waiting to run, it goes into a list of jobs called 
 the *queue*. To check on our job's status, we check the queue using the command `squeue`.
 
-```
-[remote]$ squeue -u yourUsername
-```
-{: .bash}
-```
+~~~
+squeue -u yourUsername
+~~~
+{: .language-bash}
+~~~
 JOBID USER         ACCOUNT     NAME           ST REASON START_TIME         TIME TIME_LEFT NODES CPUS
 36856 yourUsername yourAccount example-job.sh R  None   2017-07-01T16:47:02 0:11 59:49     1     1
-```
+~~~
 {: .output}
 
 We can see all the details of our job, most importantly that it is in the "R" or "RUNNING" state.
@@ -87,11 +73,11 @@ reruns a given command at 2-second intervals. This is too frequent, and will lik
 administrator. You can change the interval to a more resonable value, for example 60 seconds, with the
 `-n 60` parameter. Let's try using it to monitor another job.
 
-```
-[remote]$ sbatch example-job.sh
-[remote]$ watch -n 60 squeue -u yourUsername
-```
-{: .bash}
+~~~
+sbatch example-job.sh
+watch -n 60 squeue -u yourUsername
+~~~
+{: .language-bash}
 
 You should see an auto-updating display of your job's status. When it finishes, it will disappear
 from the queue. Press `Ctrl-C` when you want to stop the `watch` command.
@@ -115,23 +101,23 @@ option can be used to change the name of a job.
 
 Submit the following job (`sbatch example-job.sh`):
 
-```
+~~~
 #!/bin/bash
 #SBATCH -J new_name
 
 echo 'This script is running on:'
 hostname
 sleep 120
-```
+~~~
 
-```
-[remote]$ squeue -u yourUsername
-```
-{: .bash}
-```
+~~~
+squeue -u yourUsername
+~~~
+{: .language-bash}
+~~~
 JOBID USER         ACCOUNT     NAME     ST REASON   START_TIME TIME TIME_LEFT NODES CPUS
 38191 yourUsername yourAccount new_name PD Priority N/A        0:00 1:00:00   1     1
-```
+~~~
 {: .output}
 
 Fantastic, we've successfully changed the name of our job!
@@ -186,28 +172,28 @@ Resource requests are typically binding. If you exceed them, your job will be ki
 walltime as an example. We will request 30 seconds of walltime, and attempt to run a job for two
 minutes.
 
-```
+~~~
 #!/bin/bash
 #SBATCH -t 0:0:30
 
 echo 'This script is running on:'
 hostname
 sleep 120
-```
+~~~
 
 Submit the job and wait for it to finish. Once it is has finished, check the log file.
 
-```
-[remote]$ sbatch example-job.sh
-[remote]$ watch -n 60 squeue -u yourUsername
-[remote]$ cat slurm-38193.out
-```
-{: .bash}
-```
+~~~
+sbatch example-job.sh
+watch -n 60 squeue -u yourUsername
+cat slurm-38193.out
+~~~
+{: .language-bash}
+~~~
 This job is running on:
 gra533
 slurmstepd: error: *** JOB 38193 ON gra533 CANCELLED AT 2017-07-02T16:35:48 DUE TO TIME LIMIT ***
-```
+~~~
 {: .output}
 
 Our job was killed for exceeding the amount of resources it requested. Although this appears harsh,
@@ -224,30 +210,30 @@ own.
 Sometimes we'll make a mistake and need to cancel a job. This can be done with the `scancel`
 command. Let's submit a job and then cancel it using its job number.
 
-```
-[remote]$ sbatch example-job.sh
-[remote]$ squeue -u yourUsername
-```
-{: .bash}
-```
+~~~
+sbatch example-job.sh
+squeue -u yourUsername
+~~~
+{: .language-bash}
+~~~
 Submitted batch job 38759
 
 JOBID USER         ACCOUNT     NAME           ST REASON   START_TIME TIME TIME_LEFT NODES CPUS
 38759 yourUsername yourAccount example-job.sh PD Priority N/A        0:00 1:00      1     1
-```
+~~~
 {: .output}
 
 Now cancel the job with it's job number. Absence of any job info indicates that the job has been
 successfully cancelled.
 
-```
-[remote]$ scancel 38759
-[remote]$ squeue -u yourUsername
-```
-{: .bash}
-```
+~~~
+scancel 38759
+squeue -u yourUsername
+~~~
+{: .language-bash}
+~~~
 JOBID  USER  ACCOUNT  NAME  ST  REASON  START_TIME  TIME  TIME_LEFT  NODES  CPUS
-```
+~~~
 {: .output}
 
 > ## Cancelling multiple jobs
@@ -272,26 +258,26 @@ tasks as a one-off with `srun`.
 `srun` runs a single command on the cluster and then exits. Let's demonstrate this by running the
 `hostname` command with `srun`. (We can cancel an `srun` job with `Ctrl-c`.)
 
-```
-[remote]$ srun hostname
-```
-{: .bash}
-```
+~~~
+srun hostname
+~~~
+{: .language-bash}
+~~~
 gra752
-```
+~~~
 {: .output}
 
 `srun` accepts all of the same options as `sbatch`. However, instead of specifying these in a
 script, these options are specified on the command-line when starting a job. To submit a job that
 uses 2 CPUs for instance, we could use the following command:
 
-```
-[remote]$ srun -c 2 echo "This job will use 2 CPUs."
-```
-{: .bash}
-```
+~~~
+srun -c 2 echo "This job will use 2 CPUs."
+~~~
+{: .language-bash}
+~~~
 This job will use 2 CPUs.
-```
+~~~
 {: .output}
 
 Typically, the resulting shell environment will be the same as that for `sbatch`.
@@ -301,6 +287,24 @@ Typically, the resulting shell environment will be the same as that for `sbatch`
 Sometimes, you will need a lot of resource for interactive use. Perhaps it's our first time running
 an analysis or we are attempting to debug something that went wrong with a previous job.
 Fortunately, SLURM makes it easy to start an interactive job with `srun`:
+
+
+## To do
+* Text editor (nano, vim, gedit)
+  * batch script
+    * Headers
+    * Body (commands)
+* Command line (sbatch submit_script.q)
+* Job management
+  * squeue
+  * sacct
+  * scancel
+* Find output
+  * slurm out file
+  * actual job output if not stdout
+
+* Exercise: Create sample job with echo and sleep commands
+
 
 
 {% include links.md %}
