@@ -96,14 +96,14 @@ scheduler-specific options. Though these comments differ from scheduler to sched
 special comment is `#SBATCH`. Anything following the `#SBATCH` comment is interpreted as an
 instruction to the scheduler.
 
-Let's illustrate this by example. By default, a job's name is the name of the script, but the `-J`
-option can be used to change the name of a job.
+Let's illustrate this by example. By default, a job's name is the name of the script, but the 
+`--job-name=` option can be used to change the name of a job.
 
 Submit the following job (`sbatch example-job.sh`):
 
 ~~~
 #!/bin/bash
-#SBATCH -J new_name
+#SBATCH --job-name=new_name
 
 echo 'This script is running on:'
 hostname
@@ -132,78 +132,6 @@ Fantastic, we've successfully changed the name of our job!
 > Hint: you will need to use the `--mail-user` and `--mail-type` options.
 {: .challenge}
 
-### Resource requests
-
-But what about more important changes, such as the number of CPUs and memory for our jobs? One 
-thing that is absolutely critical when working on an HPC system is specifying the resources 
-required to run a job. This allows the scheduler to find the right time and place to schedule our 
-job. If you do not specify requirements (such as the amount of time you need), you will likely be
-stuck with your site's default resources, which is probably not what we want.
-
-The following are several key resource requests:
-
-* `-n <nnodes>` - how many nodes does your job need? 
-
-* `-c <ncpus>` - How many CPUs does your job need?
-
-* `--mem=<megabytes>` - How much memory on a node does your job need in megabytes? You can also
-  specify gigabytes using by adding a little "g" afterwards (example: `--mem=5g`)
-
-* `--time <days-hours:minutes:seconds>` - How much real-world time (walltime) will your job take to
-  run? The `<days>` part can be omitted.
-
-Note that just *requesting* these resources does not make your job run faster! We'll talk more 
-about how to make sure that you're using resources effectively in a later episode of this lesson.
-
-> ## Submitting resource requests
->
-> Submit a job that will use 2 CPUs, 4 gigabytes of memory, and 5 minutes of walltime.
-{: .challenge}
-
-> ## Job environment variables
->
-> When SLURM runs a job, it sets a number of environment variables for the job. One of these will
-> let us check our work from the last problem. The `SLURM_CPUS_PER_TASK` variable is set to the
-> number of CPUs we requested with `-c`. Using the `SLURM_CPUS_PER_TASK` variable, modify your job
-> so that it prints how many CPUs have been allocated.
-{: .challenge}
-
-Resource requests are typically binding. If you exceed them, your job will be killed. Let's use
-walltime as an example. We will request 30 seconds of walltime, and attempt to run a job for two
-minutes.
-
-~~~
-#!/bin/bash
-#SBATCH -t 0:0:30
-
-echo 'This script is running on:'
-hostname
-sleep 120
-~~~
-
-Submit the job and wait for it to finish. Once it is has finished, check the log file.
-
-~~~
-sbatch example-job.sh
-watch -n 60 squeue -u yourUsername
-cat slurm-38193.out
-~~~
-{: .language-bash}
-~~~
-This job is running on:
-gra533
-slurmstepd: error: *** JOB 38193 ON gra533 CANCELLED AT 2017-07-02T16:35:48 DUE TO TIME LIMIT ***
-~~~
-{: .output}
-
-Our job was killed for exceeding the amount of resources it requested. Although this appears harsh,
-this is actually a feature. Strict adherence to resource requests allows the scheduler to find the
-best possible place for your jobs. Even more importantly, it ensures that another user cannot use
-more resources than they've been given. If another user messes up and accidentally attempts to use
-all of the CPUs or memory on a node, SLURM will either restrain their job to the requested resources
-or kill the job outright. Other jobs on the node will be unaffected. This means that one user cannot
-mess up the experience of others, the only jobs affected by a mistake in scheduling will be their
-own.
 
 ## Cancelling a job
 
@@ -272,11 +200,11 @@ script, these options are specified on the command-line when starting a job. To 
 uses 2 CPUs for instance, we could use the following command:
 
 ~~~
-srun -c 2 echo "This job will use 2 CPUs."
+srun --cpus-per-task=2 echo "This task will use 2 CPUs."
 ~~~
 {: .language-bash}
 ~~~
-This job will use 2 CPUs.
+This task will use 2 CPUs.
 ~~~
 {: .output}
 
@@ -288,23 +216,16 @@ Sometimes, you will need a lot of resource for interactive use. Perhaps it's our
 an analysis or we are attempting to debug something that went wrong with a previous job.
 Fortunately, SLURM makes it easy to start an interactive job with `srun`:
 
+TO DO : salloc??  sinteractive??
 
-## To do
-* Text editor (nano, vim, gedit)
-  * batch script
-    * Headers
-    * Body (commands)
-* Command line (sbatch submit_script.q)
-* Job management
-  * squeue
+## Job output
+
+### Default slurm-out files
+
+### Application directed out files 
+
+TO DO
   * sacct
-  * scancel
-* Find output
-  * slurm out file
-  * actual job output if not stdout
-
-* Exercise: Create sample job with echo and sleep commands
-
 
 
 {% include links.md %}
